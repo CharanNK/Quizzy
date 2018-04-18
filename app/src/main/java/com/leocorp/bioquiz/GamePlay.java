@@ -1,6 +1,7 @@
 package com.leocorp.bioquiz;
 
 
+import android.app.Activity;
 import android.database.Cursor;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
@@ -22,7 +23,7 @@ import java.io.IOException;
  * Created by charank on 17-04-2018.
  */
 
-public class GamePlay extends AppCompatActivity implements View.OnClickListener {
+public class GamePlay extends Activity implements View.OnClickListener {
     TextView QuestionTextBox;
     DBHelper databaseHelper;
     Button option1;

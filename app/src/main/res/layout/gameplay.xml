@@ -6,77 +6,154 @@
     android:orientation="vertical">
 
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="0">
+        android:layout_gravity="center_horizontal"
+        android:layout_weight="0"
+        android:orientation="vertical"
+        android:padding="@dimen/padding_10">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:text="userinfo"
+                android:textColor="@color/colorWhite" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="5">
+
+                <ImageView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_gravity="left"
+                    android:layout_weight="1"
+                    android:src="@drawable/ic_home_black_24dp" />
+
+                <android.support.v4.widget.Space
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="3" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_weight="1"
+                    android:text="SKIP"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="24sp" />
+            </LinearLayout>
+
+        </FrameLayout>
 
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/linear_background"
-        android:paddingBottom="@dimen/padding_20"
         android:layout_weight="1"
+        android:background="@drawable/linear_background"
         android:gravity="bottom"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:paddingBottom="@dimen/padding_10">
 
-        <TextView
-            android:id="@+id/questionTextBox"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/padding_20"
-            android:gravity="center"
-            android:padding="@dimen/padding_10"
-            android:text="Question"
-            android:textColor="#ffffff" />
+            android:orientation="vertical">
 
-        <Button
-            android:id="@+id/option1"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="@dimen/padding_30"
-            android:background="@drawable/custombutton_default"
-            android:drawableRight="@drawable/white_happy_smiley"
-            android:paddingRight="@dimen/padding_10"
-            android:paddingBottom="@dimen/padding_10"
-            android:paddingTop="@dimen/padding_10" />
+            <TextView
+                android:id="@+id/questionTextBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/padding_20"
+                android:gravity="center"
+                android:padding="@dimen/padding_10"
+                android:text="Question"
+                android:textColor="#ffffff" />
 
-        <Button
-            android:id="@+id/option2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="@dimen/padding_30"
-            android:layout_marginTop="@dimen/padding_10"
-            android:background="@drawable/custombutton_default"
-            android:drawableRight="@drawable/white_happy_smiley"
-            android:paddingRight="@dimen/padding_10"
-            android:paddingBottom="@dimen/padding_10"
-            android:paddingTop="@dimen/padding_10" />
+            <Button
+                android:id="@+id/option1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="@dimen/padding_30"
+                android:background="@drawable/custombutton_default"
+                android:drawableRight="@drawable/white_happy_smiley"
+                android:paddingBottom="@dimen/padding_10"
+                android:paddingRight="@dimen/padding_10"
+                android:paddingTop="@dimen/padding_10" />
 
-        <Button
-            android:id="@+id/option3"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="@dimen/padding_30"
-            android:layout_marginTop="@dimen/padding_10"
-            android:background="@drawable/custombutton_default"
-            android:drawableRight="@drawable/white_happy_smiley"
-            android:paddingRight="@dimen/padding_10"
-            android:paddingBottom="@dimen/padding_10"
-            android:paddingTop="@dimen/padding_10" />
+            <Button
+                android:id="@+id/option2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="@dimen/padding_30"
+                android:layout_marginTop="@dimen/padding_10"
+                android:background="@drawable/custombutton_default"
+                android:drawableRight="@drawable/white_happy_smiley"
+                android:paddingBottom="@dimen/padding_10"
+                android:paddingRight="@dimen/padding_10"
+                android:paddingTop="@dimen/padding_10" />
 
-        <Button
-            android:id="@+id/option4"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="@dimen/padding_30"
-            android:layout_marginTop="@dimen/padding_10"
-            android:background="@drawable/custombutton_default"
-            android:drawableRight="@drawable/white_happy_smiley"
-            android:paddingRight="@dimen/padding_10"
-            android:paddingBottom="@dimen/padding_10"
-            android:paddingTop="@dimen/padding_10" />
+            <Button
+                android:id="@+id/option3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="@dimen/padding_30"
+                android:layout_marginTop="@dimen/padding_10"
+                android:background="@drawable/custombutton_default"
+                android:drawableRight="@drawable/white_happy_smiley"
+                android:paddingBottom="@dimen/padding_10"
+                android:paddingRight="@dimen/padding_10"
+                android:paddingTop="@dimen/padding_10" />
+
+            <Button
+                android:id="@+id/option4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="@dimen/padding_30"
+                android:layout_marginTop="@dimen/padding_10"
+                android:background="@drawable/custombutton_default"
+                android:drawableRight="@drawable/white_happy_smiley"
+                android:paddingBottom="@dimen/padding_10"
+                android:paddingRight="@dimen/padding_10"
+                android:paddingTop="@dimen/padding_10" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingLeft="@dimen/padding_20"
+                android:paddingRight="@dimen/padding_20"
+                android:paddingTop="@dimen/padding_10">
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="hint" />
+
+                <android.support.v4.widget.Space
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2" />
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="50:50" />
+            </LinearLayout>
+        </LinearLayout>
+
     </LinearLayout>
 
 </LinearLayout>
