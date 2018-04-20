@@ -1,11 +1,14 @@
 package com.leocorp.bioquiz;
 
 
+import android.animation.Animator;
+import android.animation.ObjectAnimator;
 import android.app.Activity;
 import android.database.Cursor;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -13,8 +16,10 @@ import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.view.animation.DecelerateInterpolator;
 import android.view.animation.TranslateAnimation;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import java.io.IOException;
@@ -39,6 +44,9 @@ public class GamePlay extends Activity implements View.OnClickListener {
     private int buttonBackground;
     private Animation animSlideLeftRight;
     private Animation animSlideRightLeft;
+    int i=0;
+    ProgressBar mProgressBar;
+    CountDownTimer mCountDownTimer;
     private int[] optionButtons = {R.id.option1, R.id.option2, R.id.option3, R.id.option4};
 
     @Override
