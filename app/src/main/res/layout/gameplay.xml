@@ -50,7 +50,8 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="center"
-                    android:text="SKIP"
+                    android:onClick="skipQuestion"
+                    android:text="Skip"
                     android:textColor="@color/colorWhite"
                     android:textSize="20sp" />
             </LinearLayout>
@@ -70,21 +71,23 @@
                 android:layout_height="match_parent"
                 android:weightSum="3"
                 android:orientation="vertical">
+
                 <TextView
-                    android:layout_width="match_parent"
+                    android:layout_width="153dp"
                     android:layout_height="0dp"
                     android:layout_weight="1"
-                    android:textSize="18sp"
+                    android:text="QUESTION"
                     android:textColor="@color/colorWhite"
-                    android:text="QUESTION"/>
+                    android:textSize="18sp" />
+
                 <TextView
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="0dp"
                     android:layout_weight="2"
-                    android:textSize="30sp"
+                    android:id="@+id/question_counter"
                     android:gravity="center"
                     android:textColor="@color/colorWhite"
-                    android:text="1/40"/>
+                    android:textSize="30sp" />
             </LinearLayout>
             <android.support.v4.widget.Space
                 android:layout_width="0dp"
@@ -109,23 +112,45 @@
                     android:layout_height="0dp"
                     android:layout_weight="2"
                     android:gravity="center"
+                    android:id="@+id/score_display"
                     android:textSize="30sp"
                     android:textColor="@color/colorWhite"
-                    android:text="25"/>
+                    android:text="0"/>
             </LinearLayout>
         </LinearLayout>
-        <LinearLayout
+        <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <ProgressBar
                 android:id="@+id/progressBar3"
-                style="?android:attr/progressBarStyle"
-                android:max="100"
+                style="?android:attr/progressBarStyleHorizontal"
                 android:progress="0"
-                android:layout_width="100dp"
+                android:max="100"
+                android:layout_width="200dp"
+                android:layout_gravity="center"
                 android:layout_height="100dp"
+                android:progressDrawable="@drawable/ring"
                 android:layout_weight="1" />
-        </LinearLayout>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:id="@+id/timer_text"
+                android:textSize="20sp"
+                android:text="00"
+                android:textColor="@color/colorWhite"/>
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_height="wrap_content"
+                android:onClick="setFiftyFifty"
+                android:text="50:50"/>
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="HINT"
+                android:layout_gravity="right|center_vertical"/>
+        </FrameLayout>
     </LinearLayout>
 
     <LinearLayout

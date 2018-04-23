@@ -21,7 +21,7 @@ import java.io.OutputStream;
 public class DBHelper extends SQLiteOpenHelper {
     private static final String TAG = "DataBaseHelper";
     private static String DB_PATH = "";
-    private static String DB_NAME ="books.db";// Database name
+    private static String DB_NAME ="bioquiz.sqlite";// Database name
     private SQLiteDatabase mDataBase;
     private final Context mContext;
 
@@ -108,7 +108,7 @@ public class DBHelper extends SQLiteOpenHelper {
     public Cursor getQuestionOptions(int id){
         Log.d(TAG,"getQuestionOptions");
         openDataBase();
-        String queryToExecute = "select question,optiona,optionb,optionc,optiond,answer from books where _id="+id;
+        String queryToExecute = "select question,option1,option2,option3,option4,answer from bioquiz where id='"+id+"'";
         Log.d("queryToExecute : ",queryToExecute);
         Cursor result = mDataBase.rawQuery(queryToExecute,null);
         return result;
