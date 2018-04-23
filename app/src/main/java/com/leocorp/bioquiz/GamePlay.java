@@ -4,6 +4,8 @@ package com.leocorp.bioquiz;
 import android.animation.Animator;
 import android.animation.ObjectAnimator;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.database.Cursor;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -45,9 +47,11 @@ public class GamePlay extends Activity implements View.OnClickListener {
     private int currentScore = 0;
     private static final long COUNTDOWN_IN_MILLIS = 20000;
     private int[] optionButtons = {R.id.option1, R.id.option2, R.id.option3, R.id.option4};
+    private static String hintText = null;
 
     private CountDownTimer countDownTimer;
     private long timeLeftInMillis;
+    private static String link;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -131,6 +135,8 @@ public class GamePlay extends Activity implements View.OnClickListener {
             option3.setText(cursor.getString(3));
             option4.setText(cursor.getString(4));
             answer = cursor.getString(5);
+            link = cursor.getString(6);
+            hintText = cursor.getString(7);
             Log.d("answer here :", answer);
         }
     }
@@ -230,6 +236,19 @@ public class GamePlay extends Activity implements View.OnClickListener {
                 showAnswer();
             }
         }.start();
+    }
+
+    public void showHint(View view){
+        AlertDialog alertDialog = new AlertDialog.Builder(GamePlay.this).create();
+        alertDialog.setTitle("Hint!");
+        alertDialog.setMessage(hintText);
+        alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+        alertDialog.show();
     }
 
     private void updateTimer() {
