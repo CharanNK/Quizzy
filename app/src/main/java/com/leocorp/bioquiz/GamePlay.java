@@ -52,6 +52,7 @@ public class GamePlay extends Activity implements View.OnClickListener {
     private CountDownTimer countDownTimer;
     private long timeLeftInMillis;
     private static String link;
+    long time = 12000;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -87,7 +88,7 @@ public class GamePlay extends Activity implements View.OnClickListener {
 
     public void updateQuestion(int id) {
         timeLeftInMillis = COUNTDOWN_IN_MILLIS ;
-        startCountDown();
+        startCountDown(COUNTDOWN_IN_MILLIS);
         questionCounter.setText(String.valueOf(questionNumber)+"/25");
         TranslateAnimation animate = new TranslateAnimation(-option1.getWidth(), 0, 0, 0);
         animate.setDuration(500);
@@ -221,11 +222,12 @@ public class GamePlay extends Activity implements View.OnClickListener {
         }, 600);
     }
 
-    private void startCountDown() {
-        countDownTimer = new CountDownTimer(timeLeftInMillis,1000) {
+    private void startCountDown(long timeStartFrom) {
+        countDownTimer = new CountDownTimer(timeStartFrom,1000) {
             @Override
             public void onTick(long millisUntilFinished) {
                 timeLeftInMillis = millisUntilFinished;
+                time = millisUntilFinished;
                 updateTimer();
             }
 
@@ -239,6 +241,7 @@ public class GamePlay extends Activity implements View.OnClickListener {
     }
 
     public void showHint(View view){
+        timerPause();
         AlertDialog alertDialog = new AlertDialog.Builder(GamePlay.this).create();
         alertDialog.setTitle("Hint!");
         alertDialog.setMessage(hintText);
@@ -246,9 +249,18 @@ public class GamePlay extends Activity implements View.OnClickListener {
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.dismiss();
+                        timerResume();
                     }
                 });
         alertDialog.show();
+    }
+
+    private void timerResume() {
+        startCountDown(timeLeftInMillis);
+    }
+
+    private void timerPause() {
+        countDownTimer.cancel();
     }
 
     private void updateTimer() {
