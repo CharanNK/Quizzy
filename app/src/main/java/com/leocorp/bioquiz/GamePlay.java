@@ -6,6 +6,7 @@ import android.animation.ObjectAnimator;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -16,6 +17,8 @@ import android.util.Log;
 import android.view.View;
 import android.view.animation.DecelerateInterpolator;
 import android.view.animation.TranslateAnimation;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -53,6 +56,7 @@ public class GamePlay extends Activity implements View.OnClickListener {
     private long timeLeftInMillis;
     private static String link;
     long time = 12000;
+    private boolean hintUsed;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -87,6 +91,12 @@ public class GamePlay extends Activity implements View.OnClickListener {
     }
 
     public void updateQuestion(int id) {
+        hintUsed = false;
+        if(id==26){
+            Intent intent = new Intent(GamePlay.this,HighScoreActivity.class);
+            intent.putExtra("score",currentScore);
+            startActivity(intent);
+        }
         timeLeftInMillis = COUNTDOWN_IN_MILLIS ;
         startCountDown(COUNTDOWN_IN_MILLIS);
         questionCounter.setText(String.valueOf(questionNumber)+"/25");
@@ -153,7 +163,7 @@ public class GamePlay extends Activity implements View.OnClickListener {
                     option1.setBackgroundResource(R.drawable.custombutton_success);
                     option1.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.green_happy_smiley, 0);
                     showNextQuestion();
-                    updateScore(true,false);
+                    updateScore(true);
                 } else {
                     option1.setBackgroundResource(R.drawable.custombutton_wrong);
                     option1.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.red_sad_smiley, 0);
@@ -166,7 +176,7 @@ public class GamePlay extends Activity implements View.OnClickListener {
                     option2.setBackgroundResource(R.drawable.custombutton_success);
                     option2.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.green_happy_smiley, 0);
                     showNextQuestion();
-                    updateScore(true,false);
+                    updateScore(true);
                 } else {
                     option2.setBackgroundResource(R.drawable.custombutton_wrong);
                     option2.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.red_sad_smiley, 0);
@@ -179,7 +189,7 @@ public class GamePlay extends Activity implements View.OnClickListener {
                     option3.setBackgroundResource(R.drawable.custombutton_success);
                     option3.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.green_happy_smiley, 0);
                     showNextQuestion();
-                    updateScore(true,false);
+                    updateScore(true);
                 } else {
                     option3.setBackgroundResource(R.drawable.custombutton_wrong);
                     option3.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.red_sad_smiley, 0);
@@ -193,7 +203,7 @@ public class GamePlay extends Activity implements View.OnClickListener {
                     option4.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.green_happy_smiley, 0);
                     showNextQuestion();
                     showAnswer();
-                    updateScore(true,false);
+                    updateScore(true);
                 } else {
                     option4.setBackgroundResource(R.drawable.custombutton_wrong);
                     option4.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.red_sad_smiley, 0);
@@ -203,7 +213,7 @@ public class GamePlay extends Activity implements View.OnClickListener {
         }
     }
 
-    private void updateScore(boolean ansCorrect, boolean hintUsed) {
+    private void updateScore(boolean ansCorrect) {
         if(ansCorrect&&!hintUsed)
             currentScore+=10;
         if(ansCorrect&&hintUsed)
@@ -241,6 +251,7 @@ public class GamePlay extends Activity implements View.OnClickListener {
     }
 
     public void showHint(View view){
+        hintUsed = true;
         timerPause();
         AlertDialog alertDialog = new AlertDialog.Builder(GamePlay.this).create();
         alertDialog.setTitle("Hint!");
@@ -279,25 +290,74 @@ public class GamePlay extends Activity implements View.OnClickListener {
     }
 
     public void showAnswer() {
-        if (answer.equals(option1.getText())) {
+        if (answer.equals(option1.getText().toString().trim())) {
             option1.setBackgroundResource(R.drawable.custombutton_success);
             option1.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.green_happy_smiley, 0);
-        } else if (answer.equals(option2.getText())) {
+        } else if (answer.equals(option2.getText().toString().trim())) {
             option2.setBackgroundResource(R.drawable.custombutton_success);
             option2.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.green_happy_smiley, 0);
-        } else if (answer.equals(option3.getText())) {
+        } else if (answer.equals(option3.getText().toString().trim())) {
             option3.setBackgroundResource(R.drawable.custombutton_success);
             option3.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.green_happy_smiley, 0);
-        } else if (answer.equals(option4.getText())) {
+        } else if (answer.equals(option4.getText().toString().trim())) {
             option4.setBackgroundResource(R.drawable.custombutton_success);
             option4.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.green_happy_smiley, 0);
         }
 
-        showNextQuestion();
+        if(hintUsed) {
+            currentScore -= 5;
+            scoreCounter.setText(String.valueOf(currentScore));
+        }
+
+        AlertDialog.Builder alert = new AlertDialog.Builder(this);
+        alert.setTitle("Title here");
+
+        WebView wv = new WebView(this);
+        wv.loadUrl(link);
+        wv.setWebViewClient(new WebViewClient() {
+            @Override
+            public boolean shouldOverrideUrlLoading(WebView view, String url) {
+                view.loadUrl(url);
+
+                return true;
+            }
+        });
+
+        alert.setView(wv);
+        alert.setNegativeButton("Close", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int id) {
+                dialog.dismiss();
+                showNextQuestion();
+            }
+        });
+        alert.show();
+
     }
 
     public void skipQuestion(View v){
         showNextQuestion();
+    }
+
+    public void homeButtonClick(View v){
+        final AlertDialog.Builder alert = new AlertDialog.Builder(this);
+        alert.setTitle("Quit playing");
+        alert.setMessage("Are you sure you want to quit the game? Your progress will not be saved!");
+        alert.setPositiveButton("YES", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                Intent intent = new Intent(GamePlay.this,MainActivity.class);
+//                intent.putExtra("score",currentScore);
+                startActivity(intent);
+            }
+        });
+        alert.setNegativeButton("NO", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialogInterface.dismiss();
+            }
+        });
+        alert.show();
     }
 
     public void setFiftyFifty(View v){
@@ -332,5 +392,30 @@ public class GamePlay extends Activity implements View.OnClickListener {
                 optionsVector.remove(0);
             }
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        //super.onBackPressed();
+//        countDownTimer.cancel();
+
+        final AlertDialog.Builder alert = new AlertDialog.Builder(this);
+        alert.setTitle("Quit playing");
+        alert.setMessage("Are you sure you want to quit the game? Your progress will not be saved!");
+        alert.setPositiveButton("YES", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                Intent intent = new Intent(GamePlay.this,HighScoreActivity.class);
+                intent.putExtra("score",currentScore);
+                startActivity(intent);
+            }
+        });
+        alert.setNegativeButton("NO", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialogInterface.dismiss();
+            }
+        });
+        alert.show();
     }
 }

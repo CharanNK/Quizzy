@@ -37,6 +37,7 @@
                     android:layout_height="match_parent"
                     android:layout_alignParentLeft="true"
                     android:layout_gravity="left"
+                    android:onClick="homeButtonClick"
                     android:layout_weight="1"
                     android:src="@drawable/ic_home_black_24dp" />
 
